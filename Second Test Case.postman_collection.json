@@ -1,0 +1,326 @@
+{
+	"info": {
+		"_postman_id": "c96d6e6c-9272-400d-8a9a-28211dc21777",
+		"name": "Second Test Case",
+		"description": "Postman allows you to test out our APIs [using simple Javascript code](https://postman.postman.co/workspace/API-Visualizer-Template-~6311738d-2e70-441f-ae12-78caf078c5b7/collection/22517504-c60852f9-f785-46f6-8917-11ccbc3fa316?ctx=documentation). You can evaluate your responses including their bodies, headers, cookies using the [ChaiJS BDD](https://www.chaijs.com/api/bdd/) syntax.\n\nThis collection showcases how you can do Integration testing on your APIs using Postman.\n\nTo get started, head over to the first request in the collection, click on `Send`. Once you receive the response, you can see the results in the `Test Results` tab in the response section. Feel free to edit the test scripts to test your APIs.\n\nYou can find the full Postman Sandbox API reference [here](https://learning.postman.com/docs/sending-requests/grpc/postman-sandbox-api/#writing-assertions).\n\n<img src=\"https://content.pstmn.io/52b47981-dc82-4cfc-a9ac-e50a48d7f101/aW1hZ2UucG5n\" alt=\"pm.test%20syntax\" width=\"689\" height=\"99\">\n\n<img src=\"https://content.pstmn.io/d7c1a57a-aa8f-49d0-8752-276cc25f40d8/aW1hZ2UucG5n\" alt=\"chai%20expect%20for%20assertion\" width=\"533\" height=\"67\">",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16856958"
+	},
+	"item": [
+		{
+			"name": "Create User without CSV file",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Demo test\", function(){\r",
+							"    pm.sendRequest({\r",
+							"        url: \"https://automationexercise.com/api/createAccount\",\r",
+							"        method: \"POST\",\r",
+							"        header: {\r",
+							"            'Content-Type': 'application/x-www-form-urlencoded'\r",
+							"              },\r",
+							"        body: {\r",
+							"            mode: 'urlencoded',\r",
+							"            urlencoded: [\r",
+							"                { key:'name', value: 'hello123'},\r",
+							"                { key: 'email', value: 'hello123@example.com'}, \r",
+							"                { key: 'password', value: 'mogambo123456'},\r",
+							"                { key: 'title', value: 'Mr'},\r",
+							"                { key: 'birth_day', value: '1'},\r",
+							"                { key: 'birth_month', value: '1'},\r",
+							"                { key: 'birth_year', value: '2001'},\r",
+							"                { key: 'firstname', value: 'hello123'}, \r",
+							"                { key: 'lastname', value: 'olleh123'}, \r",
+							"                { key: 'company', value: 'test'}, \r",
+							"                { key: 'address1', value: 'a'}, \r",
+							"                { key: 'address2', value: 'b'},\r",
+							"                { key: 'country', value: 'Canada'}, \r",
+							"                { key: 'state', value: 'c'},\r",
+							"                { key: 'city', value: 'd'}, \r",
+							"                { key: 'zipcode', value: '123456789'},\r",
+							"                { key: 'mobile_number', value: '1122334455'}\r",
+							"            ]\r",
+							"  }\r",
+							"    },\r",
+							"    function(err,res){\r",
+							"        if (err) {\r",
+							"            console.log(err);\r",
+							"        } else {\r",
+							"            console.log(res);\r",
+							"            pm.expect(res).to.have.property(\"responseCode\", 201);\r",
+							"            pm.expect(res).to.have.property(\"message\", \"User created!\");\r",
+							"  }\r",
+							"\r",
+							"    })\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Check user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"User details verify test\", function(){\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.responseCode).to.eql(200);    \r",
+							"    pm.expect(jsonData.user.name).to.eql(\"hello123\");\r",
+							"    pm.expect(jsonData.user.email).to.eql(\"hello123@example.com\");\r",
+							"    pm.expect(jsonData.user.title).to.eql(\"Mr\");\r",
+							"    pm.expect(jsonData.user.birth_day).to.eql(\"hello123\");\r",
+							"    pm.expect(jsonData.user.birth_month).to.eql(\"1\");\r",
+							"    pm.expect(jsonData.user.birth_year).to.eql(\"2001\");\r",
+							"    pm.expect(jsonData.user.first_name).to.eql(\"hello123\");\r",
+							"    pm.expect(jsonData.user.last_name).to.eql(\"olleh123\");\r",
+							"    pm.expect(jsonData.user.company).to.eql(\"test\");\r",
+							"    pm.expect(jsonData.user.address1).to.eql(\"a\");\r",
+							"    pm.expect(jsonData.user.address2).to.eql(\"b\");\r",
+							"    pm.expect(jsonData.user.country).to.eql(\"Canada\");\r",
+							"    pm.expect(jsonData.user.state).to.eql(\"c\");\r",
+							"    pm.expect(jsonData.user.city).to.eql(\"d\");\r",
+							"    pm.expect(jsonData.user.zipcode).to.eql(\"123456789\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://automationexercise.com/api/getUserDetailByEmail?email=hello123@example.com",
+					"protocol": "https",
+					"host": [
+						"automationexercise",
+						"com"
+					],
+					"path": [
+						"api",
+						"getUserDetailByEmail"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "hello123@example.com"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update User without CSV",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"put test\", function(){\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.responseCode).to.eql(200);\r",
+							"    pm.expect(jsonData.message).to.eql(\"User updated!\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "hello123",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "hello123@example.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "mogambo123456",
+							"type": "text"
+						},
+						{
+							"key": "title",
+							"value": "Mr",
+							"type": "text"
+						},
+						{
+							"key": "birth_day",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "birth_month",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "birth_year",
+							"value": "2001",
+							"type": "text"
+						},
+						{
+							"key": "firstname",
+							"value": "hello123",
+							"type": "text"
+						},
+						{
+							"key": "lastname",
+							"value": "olleh123",
+							"type": "text"
+						},
+						{
+							"key": "company",
+							"value": "test",
+							"type": "text"
+						},
+						{
+							"key": "address1",
+							"value": "ad",
+							"type": "text"
+						},
+						{
+							"key": "address2",
+							"value": "bdd",
+							"type": "text"
+						},
+						{
+							"key": "country",
+							"value": "Canada",
+							"type": "text"
+						},
+						{
+							"key": "state",
+							"value": "c",
+							"type": "text"
+						},
+						{
+							"key": "city",
+							"value": "d",
+							"type": "text"
+						},
+						{
+							"key": "zipcode",
+							"value": "123456789",
+							"type": "text"
+						},
+						{
+							"key": "mobile_number",
+							"value": "1122334455",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://automationexercise.com/api/updateAccount",
+					"protocol": "https",
+					"host": [
+						"automationexercise",
+						"com"
+					],
+					"path": [
+						"api",
+						"updateAccount"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete User without CSV",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Delete User Account\", function(){\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.responseCode).to.eql(200);    \r",
+							"    pm.expect(jsonData.message).to.eql(\"Account Deleted!\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "hello123@example.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "mogambo123456",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://automationexercise.com/api/deleteAccount",
+					"protocol": "https",
+					"host": [
+						"automationexercise",
+						"com"
+					],
+					"path": [
+						"api",
+						"deleteAccount"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://postman-echo.com"
+		}
+	]
+}
